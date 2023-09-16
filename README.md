@@ -4,13 +4,17 @@ A simple web application to note things down. Keeping it locally on Browser.
 
 Note: This project has been bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-- [React](https://reactjs.org/)
-
 ## Dependencies
 
 - [Node JS](https://nodejs.org) (node v20.6.0)
     - [npm](https://www.npmjs.com/) (v10.1.0)
-    - [create-react-app](https://github.com/facebook/create-react-app) (v5.0.1)
+    - [React](https://reactjs.org/) - [create-react-app](https://github.com/facebook/create-react-app) (v5.0.1)
+
+## Features
+
+- Add a new note
+- Save notes locally on device with Browsers local storage
+- Delete all notes
 
 ## Usage
 
@@ -18,7 +22,11 @@ Note: This project has been bootstrapped with [Create React App](https://github.
 Install above dependencies, if haven't already. Prefer using the exact same versions as specified to guarantee source compatibility on device. Then, follow the given steps:
 
 1. Open a Terminal in the source directory.
-2. Run `npm i` or `npm install` to install node module dependencies locally.
+2. Run
+``` bash
+npm i
+```
+ or `npm install` to install node module dependencies locally.
 
 ### Source assessment
 
@@ -49,9 +57,7 @@ This builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+This App is ready to be deployed!
 
 ## Additional references by [React Documentation](https://react.dev)
 
