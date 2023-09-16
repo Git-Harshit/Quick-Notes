@@ -4,15 +4,44 @@
 
 .Application {
 	padding: 0 1em 0 1em;
+	min-height: 100vh;
+	display: grid;
+	align-content: space-between
+}
+
+.Application > .contents {
+	min-height: calc(50vh - 1vmax);
 }
 
 .Application > .contents > h1 {
+	color: chocolate;
 	text-align: center;
+	text-decoration: underline wavy;
 }
 
 .Application .note-card {
 	box-shadow: 0 0 2px 0 violet;
-	margin: 0 .5em;
+	margin: .5em;
+	padding: .5em;
+}
+
+.Application > .contents .options {
+	display: flex;
+	justify-content: space-around;
+}
+
+.Application > .contents .options > .option {
+	padding: 1ch;
+	background-color: blue;
+	color: white;
+}
+
+.Application > .contents .options > .option#addition {
+	background-color: teal;
+}
+
+.Application > .contents .options > .option#clearance {
+	background-color: yellowgreen;
 }
 
 footer {
