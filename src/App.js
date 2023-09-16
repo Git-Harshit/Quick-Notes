@@ -4,9 +4,10 @@ import logo from './logo.svg';
 import './App.css';
 
 // Components
+	// App component for Single Page Application (SPA) home
 function App() {
 	var local_storage_key = "Quick_Notes";
-	var [notes, setNotes] = useState({});	// State Hook for notes in JSON
+	var [notes, setNotes] = useState([]);	// State Hook for notes in JSON
 
 	// Effect Hook to load notes from sessionStorage
 	useEffect(() => {
@@ -17,22 +18,24 @@ function App() {
 			}
 			catch (error_information) {
 				console.error(error_information);
-				local_notes = {};
+				local_notes = [];
 			}
-			setNotes( { ...notes, ...local_notes } ); 
+			setNotes( notes.concat(local_notes) );
 		}
 		else {
-			localStorage.setItem(local_storage_key, JSON.stringify({}));	// .removeItem() before this .setItem() should be optional
+			localStorage.setItem(local_storage_key, JSON.stringify([]));	// .removeItem() before this .setItem() should be optional
 		}
 	}, []);
 
 	return (
 		<div className="Application">
-			<header className="App-header"></header>
-			<section className='contents'>
+			<header className="App-header">
+				<nav></nav>
+			</header>
+			<section className="contents">
 				<h1>Quick Notes</h1>
-				{Object.keys(notes).map( (title, index) => 
-					<NotesCard title={title} detail={notes[title]} key={index}/>
+				{notes.map( (note, index) => 
+					<NotesCard title={note.title} detail={note["content"]} className={note["custom_properties"] ? note["custom_properties"]:"default"} key={index} />
 				)}
 			</section>
 			<footer className="App-footer">
@@ -45,6 +48,7 @@ function App() {
 	);
 }
 
+	// NotesCard component for an individual note 
 class NotesCard extends React.Component {
 	render() {
 		return (
