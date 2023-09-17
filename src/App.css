@@ -20,7 +20,7 @@
 }
 
 .Application .note-card {
-	box-shadow: 0 0 2px 0 violet;
+	box-shadow: 0 0 2px 1px rosybrown;
 	margin: .5em;
 	padding: .5em;
 }
@@ -34,6 +34,7 @@
 	padding: 1ch;
 	background-color: blue;
 	color: white;
+	width: 100%;
 }
 
 .Application > .contents .options > .option#addition {
@@ -42,6 +43,12 @@
 
 .Application > .contents .options > .option#clearance {
 	background-color: yellowgreen;
+}
+
+@media screen and (max-width: 600px) {
+	.Application > .contents .options {
+		flex-flow: column;
+	}
 }
 
 footer {
