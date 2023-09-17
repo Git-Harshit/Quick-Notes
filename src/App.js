@@ -1,5 +1,5 @@
 // Dependencies
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
@@ -9,6 +9,7 @@ var local_storage_key = "Quick_Notes";
 // Components
 	// App component for Single Page Application (SPA) home
 function App() {
+	var noteSync = useRef(false);			// ref state maintained as flag for preventing first useEffect render against resetting localStorage data
 	var [notes, setNotes] = useState([]);	// State Hook for notes in JSON
 
 	// Effect Hook to load notes from sessionStorage (runs just once on initial render with empty dependency array as second argument to useEffect)
@@ -17,23 +18,26 @@ function App() {
 		try {
 			local_notes = localStorage.getItem(local_storage_key);
 			if ( !([null, undefined].includes(local_notes)) ) local_notes = JSON.parse(local_notes);
+			else local_notes = [];
 		}
 		catch (error_information) {
 			console.error(error_information);
 			local_notes = [];
 		}
-		notes = local_notes;	// This is a temporary work-around for development run to prevent clearance of notes as observed during double executions of the following Effect. Production build already works fine directly without this warning-generating assignment required.
 		setNotes( local_notes );
 	}, []);
 
 	// Effect Hook to save notes to sessionStorage on every update and render by setNotes()
 	useEffect(function() {
-		try {
-			localStorage.setItem(local_storage_key, JSON.stringify(notes));	// .removeItem() to clear before this .setItem() should be optional
+		if (noteSync.current) {		// Check to prevent first blank render initially triggered on component render
+			try {
+				localStorage.setItem(local_storage_key, JSON.stringify(notes));	// .removeItem() to clear before this .setItem() should be optional
+			}
+			catch (exception_information) {
+				console.error(exception_information);
+			}
 		}
-		catch (exception_information) {
-			console.error(exception_information);
-		}
+		else { noteSync.current = true; }
 	}, [notes]);
 
 	return (
