@@ -3,26 +3,35 @@
 }
 
 .Application {
-	padding: 0 1em 0 1em;
 	min-height: 100vh;
 	display: grid;
 	align-content: space-between
 }
 
-.Application > .contents {
-	min-height: calc(50vh - 1vmax);
+.Application > .App-header {
+	background: rgba(210, 105, 30, 0.3);
 }
 
-.Application > .contents > h1 {
+.Application > .App-header > nav > h1 {
 	color: chocolate;
 	text-align: center;
 	text-decoration: underline wavy;
+}
+
+.Application > .contents {
+	padding: 0 1em 0 1em;
+	min-height: calc(50vh - 1vmax);
 }
 
 .Application .note-card {
 	box-shadow: 0 0 2px 1px rosybrown;
 	margin: .5em;
 	padding: .5em;
+}
+
+.Application .note-card:hover {
+	transition: all 0.5s;
+	box-shadow: 0 0 1px 2px rosybrown;
 }
 
 .Application > .contents .options {
@@ -35,6 +44,7 @@
 	background-color: blue;
 	color: white;
 	width: 100%;
+	cursor: pointer;
 }
 
 .Application > .contents .options > .option#addition {
@@ -59,12 +69,13 @@ footer {
 
 footer > img.react-logo {
 	width: 2em;
-}	
+	pointer-events: none;
+}
+
+footer .link {
+	text-decoration: overline dashed;
+}
 
 .App-link {
 	color: #61dafb;
-}
-
-.react-logo {
-	pointer-events: none;
 }

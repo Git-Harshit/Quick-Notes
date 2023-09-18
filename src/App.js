@@ -12,6 +12,25 @@ function App() {
 	var noteSync = useRef(false);			// ref state maintained as flag for preventing first useEffect render against resetting localStorage data
 	var [notes, setNotes] = useState([]);	// State Hook for notes in JSON
 
+	// Helper function to update a note
+	function update_note(index) {
+		let note_entry = notes[index];
+		let title = prompt("Update title:", note_entry && note_entry.title);
+		let content = prompt("Update content:", note_entry && note_entry.content);
+		if (title || content) {
+			let response = window.confirm(`Ready to update this note with\n title: ${title}.\n content: ${content}\n ?`);
+			if (response === true) {
+				setNotes((notes) => { notes[index]["title"] = title; notes[index]["content"] = content; return notes.concat([]); });
+			}
+		}
+		else {
+			let response = window.confirm("No input recevied. Would you like to clear this note from the notes list?");
+			if (response === true) {
+				setNotes(notes => notes.filter((_, indice) => indice !== index));
+			}
+		}
+	}
+
 	// Effect Hook to load notes from sessionStorage (runs just once on initial render with empty dependency array as second argument to useEffect)
 	useEffect(() => {
 		let local_notes = [];
@@ -43,13 +62,14 @@ function App() {
 	return (
 		<div className="Application">
 			<header className="App-header">
-				<nav></nav>
+				<nav>
+					<h1>Quick Notes</h1>
+				</nav>
 			</header>
 			<section className="contents">
-				<h1>Quick Notes</h1>
 				{notes && notes.map( (note, index) => 
 					note && typeof(note) === typeof(Object()) && 
-					<NotesCard title={note.title} detail={note["content"]} className={note["custom_properties"] ? note["custom_properties"]:"default"} key={index} />
+					<NotesCard title={note.title} detail={note["content"]} className={note["custom_properties"] ? note["custom_properties"]:"default"} key={index} onClick={()=>update_note(index)} />
 				)}
 				<article className="options">
 					<button className="option" id="addition" onClick={ () => { 
@@ -70,9 +90,10 @@ function App() {
 				</article>
 			</section>
 			<footer className="App-footer">
+				<a href="https://github.com/Git-Harshit/Quick-Notes" className="link"> Open-sourced with GitHub </a>
 				<img src={logo} className="react-logo" alt="React"/>
 				<p> Created using &#9;{/* &tab; = &#0009; */}
-					<a className="link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">React</a>
+					<a className="link App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">React</a>
 				</p>
 			</footer>
 		</div>
@@ -83,7 +104,7 @@ function App() {
 class NotesCard extends React.Component {
 	render() {
 		return (
-			<article className={"note-card " + this.props.className}>
+			<article className={"note-card " + this.props.className} onClick={this.props.onClick} title="Click to edit this note">
 				<h4 className="note-title">{this.props.title}</h4>
 				<p className="note-detail">{this.props.detail}</p>
 			</article>
