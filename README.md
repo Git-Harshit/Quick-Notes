@@ -8,11 +8,13 @@ Note: This project has been bootstrapped with [Create React App](https://github.
 
 - [Node JS](https://nodejs.org) (node v20.6.0)
     - [npm](https://www.npmjs.com/) (v10.1.0)
-    - [React](https://reactjs.org/) - [create-react-app](https://github.com/facebook/create-react-app) (v5.0.1)
+        - [React](https://reactjs.org/) - [create-react-app](https://github.com/facebook/create-react-app) [(v5.0.1)](https://www.npmjs.com/package/create-react-app/v/5.0.1)
+        - [Bootstrap](https://getbootstrap.com/) [(v5.3.2)](https://www.npmjs.com/package/bootstrap/v/5.3.2)
 
 ## Features
 
 - Add a new note
+- Edit/Clear a note
 - Save notes locally on device with Browsers local storage
 - Delete all notes
 
@@ -69,4 +71,4 @@ This App is ready to be deployed!
 
 ---
 
-This project is currently under development and is available in a pre-ready state. Contributions of all kind are welcome to this project. Go ahead and start a discussion, raise an issue or create a Pull Request.
+This project is currently under development and is available in a pre-ready state. Contributions of all kind are welcome to this project. Go ahead and start a discussion, raise an issue or create a Pull Request. :rocket:
