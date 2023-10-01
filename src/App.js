@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import logo from './logo.svg';
 import "bootstrap/scss/bootstrap.scss";
 import './App.scss';
-// const Bootstrap = require('bootstrap');		// Importing Bootstrap to use its via JS, redundant for now but may be required in the future updates. (Such const import, if used, must be below all import statements as used above)
+const Bootstrap = require('bootstrap');		// Such require() import, if used, must be below all import statements as used above
 
 // Global Variable(s) for this file
 var local_storage_key = "Quick_Notes";
@@ -18,17 +18,17 @@ function App() {
 	function update_note(index) {
 		let note_entry = notes[index];
 		let title = prompt("Update title:", note_entry && note_entry.title);
-		let content = prompt("Update content:", note_entry && note_entry.content);
+		let content = prompt("Update content:", note_entry && decodeURIComponent(note_entry.content));
 		if (title || content) {
 			let response = window.confirm(`Ready to update this note with\n title: ${title}.\n content: ${content}\n ?`);
 			if (response === true) {
-				setNotes((notes) => { notes[index]["title"] = title; notes[index]["content"] = content; return notes.concat([]); });
+				setNotes((notes) => { notes[index]["title"] = title; notes[index]["content"] = content; notes[index]["timestamp"] = Date().toLocaleString(); return notes.concat([]); });
 			}
 		}
 		else {
 			let response = window.confirm("No input received. Would you like to clear this note from the notes list?");
 			if (response === true) {
-				setNotes(notes => notes.filter((_, indice) => indice !== index));
+				setNotes(notes => notes.filter((_, indice) => indice !== index));	// setting 'notes' by updating from previous state
 			}
 		}
 	}
@@ -69,15 +69,15 @@ function App() {
 					<ul className="navbar-nav">
 						<li className="nav-item">
 							<button className="btn nav-link" onClick={()=>{
-								let application_body = document.getElementsByClassName("Application");
-								if (application_body[0]) {
-									if (application_body[0].classList.contains("text-bg-light")) {
-										application_body[0].classList.add("text-bg-dark");
-										application_body[0].classList.remove("text-bg-light");
+								let application_body = document.querySelector(".Application");
+								if (application_body) {
+									if (application_body.classList.contains("text-bg-light")) {
+										application_body.classList.add("text-bg-dark");
+										application_body.classList.remove("text-bg-light");
 									}
 									else {
-										application_body[0].classList.toggle("text-bg-light");
-										application_body[0].classList.toggle("text-bg-dark");
+										application_body.classList.toggle("text-bg-light");
+										application_body.classList.toggle("text-bg-dark");
 									}
 								}
 							}}>
@@ -87,18 +87,56 @@ function App() {
 					</ul>
 				</nav>
 			</header>
+
 			<section className="contents">
 				{notes && notes.map( (note, index) => 
 					note && typeof(note) === typeof(Object()) && 
-					<NotesCard title={note.title} detail={note["content"]} className={note["custom_properties"] ? note["custom_properties"]:"default"} key={index} onClick={()=>update_note(index)} />
+					<NotesCard title={note.title} detail={note["content"]} timestamp={note["creation_timestamp"]} className={note["custom_properties"] ? note["custom_properties"]:"default"} key={index} onClick={()=>update_note(index)} />
 				)}
 				<article className="options">
-					<button className="option w-100 btn btn-primary" id="addition" onClick={ () => { 
-						let title=prompt("Enter a brief title:"); 
-						let content=prompt("Enter single-line content:"); 
-						if (title || content) {
-							setNotes(previous_notes => previous_notes.concat([{title, content, custom_properties:""}]));	// setting 'notes' by updating from previous state
+					<form name="New Note" className="modal fade" tabIndex="-1" onSubmit={ event => {
+						event.preventDefault();			// Prevent default submission behaviour leading to page reload
+						let titlebox=document.getElementById("note-titlebox"), contentbox=document.getElementById("note-databox"), title, content = "";
+						if (titlebox) {
+							title = titlebox.value;
+							titlebox.value = "";		// Reset TitleBox value
 						}
+						if (contentbox) {
+							content = contentbox.value;
+							contentbox.value = "";		// Reset ContentBox value
+						}
+						if (title || content) {
+							setNotes(previous_notes => previous_notes.concat([{title, content: encodeURIComponent(content), creation_timestamp: Date().toLocaleString(), custom_properties:""}]));	// setting 'notes' by updating from previous state
+							// Close the form after setting a note
+							let closeButton = document.forms.namedItem("New Note").querySelector(".btn.btn-close");
+							if (closeButton) closeButton.click();
+						}
+						else if (contentbox) {
+							contentbox.setAttribute("required", "true");
+							contentbox.checkValidity();
+						}
+					}}>
+						<div className="modal-dialog modal-content">
+							<div className="modal-header">
+								<h4 className="modal-title">Add new note</h4>
+								<button type="button" className="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div className="modal-body">	
+								<label htmlFor="note-titlebox" className="form-label">Title:</label>
+								<input id="note-titlebox" className="form-control" type="text" placeholder="Enter a brief title"/>
+								<label htmlFor="note-databox" className="form-label">Content:</label>
+								<textarea id="note-databox" className="form-control" rows="5" placeholder="Fill the contents here."/>
+							</div>
+							<div className="modal-footer justify-content-between">
+								<button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+								<button type="submit" className="btn btn-primary" id="note-save"> Save </button>
+							</div>
+						</div>
+					</form>
+
+					<button className="option w-100 btn btn-primary" id="addition" onClick={ () => { 
+						const newNoteModal = new Bootstrap.Modal(".modal");
+						newNoteModal.toggle();
 					} }>
 						Add Note
 					</button>
@@ -110,6 +148,7 @@ function App() {
 					</button>
 				</article>
 			</section>
+
 			<footer className="App-footer footer">
 				<a href="https://github.com/Git-Harshit/Quick-Notes" className="link"> Open-sourced with GitHub </a>
 				<img src={logo} className="react-logo" alt="React"/>
@@ -127,7 +166,8 @@ class NotesCard extends React.Component {
 		return (
 			<article className={"card card-body note-card " + this.props.className} onClick={this.props.onClick} title="Click to edit this note">
 				<h4 className="note-title">{this.props.title}</h4>
-				<p className="note-detail">{this.props.detail}</p>
+				<p className="note-detail">{decodeURIComponent(this.props.detail)}</p>
+				<small className="note-datestamp fw-light text-secondary d-none">{this.props.timestamp}</small>
 			</article>
 		)
 	}
