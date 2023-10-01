@@ -38,7 +38,16 @@ function App() {
 		let local_notes = [];
 		try {
 			local_notes = localStorage.getItem(local_storage_key);
-			if ( !([null, undefined].includes(local_notes)) ) local_notes = JSON.parse(local_notes);
+			if ( !([null, undefined].includes(local_notes)) ) {
+				try {
+					local_notes = atob(local_notes);	// Decoding btoa() Base64 encoding
+				}
+				catch (error) {
+					if (error.name !== "InvalidCharacterError")
+						throw error;	/* For any other error than Decoding Error, throwing error for outer try-catch to handle */
+				}
+				local_notes = JSON.parse(local_notes);
+			}
 			else local_notes = [];
 		}
 		catch (error_information) {
@@ -52,7 +61,7 @@ function App() {
 	useEffect(function() {
 		if (noteSync.current) {		// Check to prevent first blank render initially triggered on component render
 			try {
-				localStorage.setItem(local_storage_key, JSON.stringify(notes));	// .removeItem() to clear before this .setItem() should be optional
+				localStorage.setItem(local_storage_key, btoa(JSON.stringify(notes)));	// btoa() for Base64 encoding of data string, .removeItem() to clear before this .setItem() should be optional
 			}
 			catch (exception_information) {
 				console.error(exception_information);
