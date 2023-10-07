@@ -28,9 +28,14 @@ function App() {
 		else {
 			let response = window.confirm("No input received. Would you like to clear this note from the notes list?");
 			if (response === true) {
-				setNotes(notes => notes.filter((_, indice) => indice !== index));	// setting 'notes' by updating from previous state
+				delete_note(index);
 			}
 		}
+	}
+
+	// Helper function to delete a note
+	function delete_note(index) {
+		setNotes(notes => notes.filter((_, indice) => indice !== index));	// setting 'notes' by updating from previous state
 	}
 
 	// Effect Hook to load notes from sessionStorage (runs just once on initial render with empty dependency array as second argument to useEffect)
@@ -90,7 +95,7 @@ function App() {
 									}
 								}
 							}}>
-								Toggle Dark Mode
+								<i className="bi bi-circle-half">Toggle Dark Mode</i>
 							</button>
 						</li>
 					</ul>
@@ -100,7 +105,7 @@ function App() {
 			<section className="contents">
 				{notes && notes.map( (note, index) => 
 					note && typeof(note) === typeof(Object()) && 
-					<NotesCard title={note.title} detail={note["content"]} timestamp={note["creation_timestamp"]} className={note["custom_properties"] ? note["custom_properties"]:"default"} key={index} onClick={()=>update_note(index)} />
+					<NotesCard title={note.title} detail={note["content"]} timestamp={note["creation_timestamp"]} className={note["custom_properties"] ? note["custom_properties"]:"default"} key={index} editor={()=>update_note(index)} deletion={()=>delete_note(index)} />
 				)}
 				<article className="options">
 					<form name="New Note" className="modal fade" tabIndex="-1" onSubmit={ event => {
@@ -173,10 +178,16 @@ function App() {
 class NotesCard extends React.Component {
 	render() {
 		return (
-			<article className={"card card-body note-card " + this.props.className} onClick={this.props.onClick} title="Click to edit this note">
-				<h4 className="note-title">{this.props.title}</h4>
-				<p className="note-detail">{decodeURIComponent(this.props.detail)}</p>
-				<small className="note-datestamp fw-light text-secondary d-none">{this.props.timestamp}</small>
+			<article className={"card note-card text-reset " + this.props.className}>
+				<article className="card-header d-flex justify-content-between">
+					<i className="bi bi-pen-fill" onClick={this.props.editor} title="Edit this Note"></i> {/* <!-- For circular ones, try: <i className="bi bi-wrench-adjustable-circle"></i> --> */}
+					<i className="bi bi-x-circle text-danger" onClick={this.props.deletion} title="Delete this Note"></i>
+				</article>
+				<article className="card-body">
+					<h4 className="note-title">{this.props.title}</h4>
+					<p className="note-detail">{decodeURIComponent(this.props.detail)}</p>
+					<small className="note-datestamp fw-light text-secondary d-none">{this.props.timestamp}</small>
+				</article>
 			</article>
 		)
 	}

@@ -10,6 +10,15 @@ Note: This project has been bootstrapped with [Create React App](https://github.
     - [npm](https://www.npmjs.com/) (v10.1.0)
         - [React](https://reactjs.org/) - [create-react-app](https://github.com/facebook/create-react-app) [(v5.0.1)](https://www.npmjs.com/package/create-react-app/v/5.0.1)
         - [Bootstrap](https://getbootstrap.com/) [(v5.3.2)](https://www.npmjs.com/package/bootstrap/v/5.3.2)
+        - [Bootstrap Icons](https://icons.getbootstrap.com/) [(v1.11.1)](https://www.npmjs.com/package/bootstrap-icons/v/1.11.1)
+        - (Development Dependency) [SASS](https://sass-lang.com/) [(v1.68)](https://www.npmjs.com/package/sass/v/1.68.0)
+
+### Trying Development Dependency
+
+Syntactically Awesome Style Sheets (SASS) is a development dependency as was saved using `--save-dev` flag ('-D' for shorthand notation) with 'npm install'. It is included to support .sass and .scss SASS formats with Bootstrap. In case an .scss file has to be converted into its equivalent .css file, use `npx sass <input.scss> <output.css>` command. This is just suggested for assessment and is not needed to be separately done to setup files with these formats.
+For example, to check the .css source for src/App.scss file, use command ```npx sass src/App.scss src/App.css```.
+
+If 'sass' npm module is pre-installed globally (using '-g' flag with `npm install` command before), 'npx' command will not be needed and 'sass' can be directly used instead of 'npx sass'.
 
 ## Features
 
@@ -26,9 +35,9 @@ Install above dependencies, if haven't already. Prefer using the exact same vers
 1. Open a Terminal in the source directory.
 2. Run
 ``` bash
-npm i
+npm install
 ```
- or `npm install` to install node module dependencies locally.
+ or `npm i` to install node module dependencies locally.
 
 ### Source assessment
 

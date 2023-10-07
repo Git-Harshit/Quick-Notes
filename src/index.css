@@ -1,3 +1,6 @@
+/* Importing Bootstrap Icons */
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
 html {
 	tab-size: 4;
 }
