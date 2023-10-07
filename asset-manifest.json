@@ -1,17 +1,19 @@
 {
   "files": {
-    "main.css": "/Quick-Notes/static/css/main.44d03860.css",
-    "main.js": "/Quick-Notes/static/js/main.67808563.js",
+    "main.css": "/Quick-Notes/static/css/main.36655ed5.css",
+    "main.js": "/Quick-Notes/static/js/main.b77c8202.js",
     "static/js/787.574d0210.chunk.js": "/Quick-Notes/static/js/787.574d0210.chunk.js",
+    "static/media/bootstrap-icons.woff?": "/Quick-Notes/static/media/bootstrap-icons.449ad8adf6ae0424b7ed.woff",
+    "static/media/bootstrap-icons.woff2?": "/Quick-Notes/static/media/bootstrap-icons.dea24bf5a7646d8b84e7.woff2",
     "service-worker.js": "/Quick-Notes/service-worker.js",
     "static/media/logo.svg": "/Quick-Notes/static/media/logo.2d27ead7c10f774c5306bcf3c257a728.svg",
     "index.html": "/Quick-Notes/index.html",
-    "main.44d03860.css.map": "/Quick-Notes/static/css/main.44d03860.css.map",
-    "main.67808563.js.map": "/Quick-Notes/static/js/main.67808563.js.map",
+    "main.36655ed5.css.map": "/Quick-Notes/static/css/main.36655ed5.css.map",
+    "main.b77c8202.js.map": "/Quick-Notes/static/js/main.b77c8202.js.map",
     "787.574d0210.chunk.js.map": "/Quick-Notes/static/js/787.574d0210.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.44d03860.css",
-    "static/js/main.67808563.js"
+    "static/css/main.36655ed5.css",
+    "static/js/main.b77c8202.js"
   ]
 }
