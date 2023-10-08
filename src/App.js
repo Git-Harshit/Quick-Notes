@@ -76,22 +76,24 @@ function App() {
 	}, [notes]);
 
 	return (
-		<div className="Application text-bg-light">
+		<div className="Application text-bg-light" data-bs-theme="light">
 			<header className="App-header">
 				<nav className="navbar navbar-expand px-1 justify-content-between" role="navigation">
 					<a href="/Quick-Notes" className="link navbar-brand"> Quick Notes </a>
 					<ul className="navbar-nav">
 						<li className="nav-item">
-							<button className="btn nav-link" onClick={()=>{
+							<button type="button" className="btn nav-link" onClick={()=>{
 								let application_body = document.querySelector(".Application");
 								if (application_body) {
 									if (application_body.classList.contains("text-bg-light")) {
 										application_body.classList.add("text-bg-dark");
 										application_body.classList.remove("text-bg-light");
+										application_body.setAttribute("data-bs-theme", "dark")
 									}
 									else {
 										application_body.classList.toggle("text-bg-light");
 										application_body.classList.toggle("text-bg-dark");
+										application_body.setAttribute("data-bs-theme", "light")
 									}
 								}
 							}}>
@@ -132,7 +134,7 @@ function App() {
 					}}>
 						<div className="modal-dialog modal-content">
 							<div className="modal-header">
-								<h4 className="modal-title">Add new note</h4>
+								<h4 className="modal-title">Add a new note</h4>
 								<button type="button" className="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
 							<div className="modal-body">	
@@ -148,7 +150,7 @@ function App() {
 						</div>
 					</form>
 
-					<button className="option w-100 btn btn-primary" id="addition" onClick={ () => { 
+					<button type="button" className="option w-100 btn btn-primary" id="addition" onClick={ () => { 
 						const newNoteModal = new Bootstrap.Modal(".modal");
 						newNoteModal.toggle();
 					} }>
