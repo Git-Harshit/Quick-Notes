@@ -105,7 +105,7 @@ function App() {
 			<section className="contents">
 				{notes && notes.map( (note, index) => 
 					note && typeof(note) === typeof(Object()) && 
-					<NotesCard title={note.title} detail={note["content"]} timestamp={note["creation_timestamp"]} className={note["custom_properties"] ? note["custom_properties"]:"default"} key={index} editor={()=>update_note(index)} deletion={()=>delete_note(index)} />
+					<NotesCard title={note.title} detail={decodeURIComponent(note["content"])} timestamp={note["creation_timestamp"]} className={note["custom_properties"] ? note["custom_properties"]:"default"} key={index} editor={()=>update_note(index)} deletion={()=>delete_note(index)} />
 				)}
 				<article className="options">
 					<form name="New Note" className="modal fade" tabIndex="-1" onSubmit={ event => {
@@ -185,7 +185,7 @@ class NotesCard extends React.Component {
 				</article>
 				<article className="card-body">
 					<h4 className="note-title">{this.props.title}</h4>
-					<p className="note-detail">{decodeURIComponent(this.props.detail)}</p>
+					<p className="note-detail">{this.props.detail}</p>
 					<small className="note-datestamp fw-light text-secondary d-none">{this.props.timestamp}</small>
 				</article>
 			</article>
