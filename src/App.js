@@ -97,7 +97,7 @@ function App() {
 									}
 								}
 							}}>
-								<i className="bi bi-circle-half">Toggle Dark Mode</i>
+								<i className="bi bi-circle-half"></i>Toggle Dark Mode
 							</button>
 						</li>
 						<li className="nav-item">
@@ -180,12 +180,12 @@ function App() {
 					} }>
 						Add Note
 					</button>
-					<button type="reset" className="option btn btn-secondary" id="clearance" onClick={ () => {
+					{(notes.length>0) && <button type="reset" className="option btn btn-secondary" id="clearance" onClick={ () => {
 						let decision = window.confirm("Are you sure?\nPlease note that this action is not reversible and will delete all your notes stored locally."); 
 						if (decision === true) { setNotes([]); } 
 					} }>
 						Delete All
-					</button>
+					</button>}
 				</article>
 			</section>
 
