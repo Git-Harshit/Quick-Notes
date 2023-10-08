@@ -138,11 +138,11 @@ function App() {
 						event.preventDefault();			// Prevent default submission behaviour leading to page reload
 						let titlebox=document.getElementById("note-titlebox"), contentbox=document.getElementById("note-databox"), title, content = "";
 						if (titlebox) {
-							title = titlebox.value;
+							title = titlebox.value.trim();
 							titlebox.value = "";		// Reset TitleBox value
 						}
 						if (contentbox) {
-							content = contentbox.value;
+							content = contentbox.value.trim();
 							contentbox.value = "";		// Reset ContentBox value
 						}
 						if (title || content) {
