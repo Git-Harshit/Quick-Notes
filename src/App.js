@@ -100,6 +100,28 @@ function App() {
 								<i className="bi bi-circle-half">Toggle Dark Mode</i>
 							</button>
 						</li>
+						<li className="nav-item">
+							<a href="#top" className="btn nav-link" tabIndex={0} role="button" onMouseOver={ event => {
+								let download_link = event && event.target && event.target.tagName === 'A' && event.target;
+								if (download_link) {
+									let popover = Bootstrap.Popover.getOrCreateInstance(download_link, { "content": "No notes available to export", component:download_link.parentElement, trigger: "hover focus", timeout:5 });
+									if (notes.length > 0) {
+										download_link.href = "data:text/javascript;base64,"+btoa(JSON.stringify(notes));
+										download_link.download = "all_notes.json";
+										popover.setContent({".popover-body":"Saved!"});
+										popover.dispose();
+									}
+									else {
+										download_link.setAttribute("href", "#");
+										download_link.removeAttribute("download");
+										popover.setContent({".popover-body":"No notes found."});
+										popover.show();
+									}
+								}
+							} }>
+								Export Notes
+							</a>
+						</li>
 					</ul>
 				</nav>
 			</header>
@@ -109,7 +131,7 @@ function App() {
 					note && typeof(note) === typeof(Object()) && 
 					<NotesCard title={note.title} detail={decodeURIComponent(note["content"])} timestamp={note["creation_timestamp"]} className={note["custom_properties"] ? note["custom_properties"]:"default"} key={index} editor={()=>update_note(index)} deletion={()=>delete_note(index)} />
 					) :
-					<p className="text-center fw-light py-4">No notes available. Get started by adding one.</p>
+					<p className="text-center fw-light py-5">No notes available. Get started by adding one.</p>
 				}
 				<article className="options">
 					<form name="New Note" className="modal fade" tabIndex="-1" onSubmit={ event => {
