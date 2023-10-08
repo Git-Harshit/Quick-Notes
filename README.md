@@ -22,10 +22,14 @@ If 'sass' npm module is pre-installed globally (using '-g' flag with `npm instal
 
 ## Features
 
+Key highlights of this application are:
+
 - Add a new note
-- Edit/Clear a note
-- Save notes locally on device with Browsers local storage
+- Edit, Delete a note
 - Delete all notes
+- Dark theme
+- Save notes locally on device with Browsers local storage
+- Export Notes in JavaScript Object Notation (JSON) file format
 
 ## Usage
 
@@ -34,27 +38,33 @@ Install above dependencies, if haven't already. Prefer using the exact same vers
 
 1. Open a Terminal in the source directory.
 2. Run
-``` bash
-npm install
-```
- or `npm i` to install node module dependencies locally.
+    ``` bash
+    npm install
+    ```
+    or `npm i` to install node module dependencies locally. To ensure clean installation, use `npm clean install` or `npm ci` to discard any module that is already installed in the project directory and newly install all dependencies.
 
 ### Source assessment
 
 Open a terminal in the source directory, and use below commands as intended.
 
-1. `npm start` or `npm run start`
+1.  ``` bash
+    npm start
+    ```
+    or `npm run start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in browser.
+    Runs the app in the development mode.\
+    Open [http://localhost:3000/Quick-Notes](http://localhost:3000/Quick-Notes) to view it in browser.
 
-The page will reload on changes to any project file.\
-Any lint errors will also be shown in terminal/console.
+    The page will reload on changes to any project file.\
+    Any lint errors will also be shown in terminal/console.
 
-2. `npm test` or `npm run test`
+2.  ``` bash
+    npm test
+    ```
+    or `npm run test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    Launches the test runner in the interactive watch mode.\
+    See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### Source Build
 
@@ -80,4 +90,4 @@ This App is ready to be deployed!
 
 ---
 
-This project is currently under development and is available in a pre-ready state. Contributions of all kind are welcome to this project. Go ahead and start a discussion, raise an issue or create a Pull Request. :rocket:
+This project is currently under development and is available in a ready state. Contributions of all kind are welcome to this project. Go ahead and start a discussion, raise an issue or create a Pull Request. :rocket:
