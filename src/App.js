@@ -105,10 +105,12 @@ function App() {
 			</header>
 
 			<section className="contents">
-				{notes && notes.map( (note, index) => 
+				{notes.length ? notes.map( (note, index) => 
 					note && typeof(note) === typeof(Object()) && 
 					<NotesCard title={note.title} detail={decodeURIComponent(note["content"])} timestamp={note["creation_timestamp"]} className={note["custom_properties"] ? note["custom_properties"]:"default"} key={index} editor={()=>update_note(index)} deletion={()=>delete_note(index)} />
-				)}
+					) :
+					<p className="text-center fw-light py-4">No notes available. Get started by adding one.</p>
+				}
 				<article className="options">
 					<form name="New Note" className="modal fade" tabIndex="-1" onSubmit={ event => {
 						event.preventDefault();			// Prevent default submission behaviour leading to page reload
