@@ -101,6 +101,9 @@ function App() {
 							</button>
 						</li>
 						<li className="nav-item">
+							<button type="button" className="btn nav-link" data-bs-toggle="modal" data-bs-target="#bulk-import-modal">Import Notes</button>
+						</li>
+						<li className="nav-item">
 							<a href="#top" className="btn nav-link" tabIndex={0} role="button" onMouseOver={ event => {
 								let download_link = event && event.target && event.target.tagName === 'A' && event.target;
 								if (download_link) {
@@ -124,6 +127,91 @@ function App() {
 						</li>
 					</ul>
 				</nav>
+				<div className="modal fade" id="bulk-import-modal">
+					<div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+						<div className="modal-content">
+							<div className="modal-header">
+								<button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div className="modal-body">
+								<label htmlFor="bulk-import-notes">Import a compatible file</label>
+								<input type="file" name="notes-file" id="bulk-import-notes" className="form-control" accept="application/JSON,text/plain"
+									onChange={(event) => {
+										let import_file = event.target.files.item(0);
+										let import_button = document.getElementById("bulk-import-trigger");
+										if (import_file) {
+											let reader = new FileReader(), notes_preview = document.getElementById("notes-preview"), new_notes;
+											reader.readAsText(import_file);
+											// Event(s) Handler function for 'reader'
+											function handleFilReadEvent(event) {
+												if (event.type === "loadstart" && notes_preview) {
+													notes_preview.innerHTML = "<br/>Loading content ...";
+												}
+												else if (event.type === "loadend") {
+													if (import_button) {
+														import_button.innerText = "Import";
+														import_button.classList.remove("invisible");
+														import_button.removeAttribute("disabled");
+														// Adding click handler for Import Button
+														import_button.onclick = ()=>{
+															import_button.setAttribute("disabled", "");
+															if (new_notes.length > 0) {
+																setNotes( last_notes => last_notes.concat( new_notes ) );
+																// Clearing input and dismissing modal
+																let file_input = document.getElementById("bulk-import-notes"), dismiss_button = document.getElementById("bulk-import-dismiss");
+																if (file_input) file_input.value = "";
+																notes_preview && (notes_preview.innerText = "");
+																if (dismiss_button) dismiss_button.click();
+															}
+															else {
+																import_button.innerText = "Not added";
+															}
+														};
+													}
+												}
+												else if (event.type === "load") {
+													try {
+														// Parsing file text into array of notes
+														new_notes = reader.result.trim();
+														new_notes = (new_notes === "") ? [] : JSON.parse(new_notes);
+														if (Array.isArray(new_notes) !== true) new_notes = [new_notes];		// Converting individual note into Array of that note to support importing individual note Object as well from reader.result
+
+														new_notes.map( note => (note.title || note.content) && { title:note.title, content:note.content, creation_timestamp: note["timestamp"] ? note.timestamp : note.creation_timestamp ? note.creation_timestamp : new Date().toLocaleString() } );	// Filtering data using the required fields of notes for importing, ensuring that a note is only imported if it holds a title or content data
+
+														if (notes_preview) {
+															if (new_notes.length > 0) {
+																notes_preview.innerHTML = "<br/><label>Preview:</label><br/><br/>";
+																new_notes.forEach( note => notes_preview.innerHTML += `<h6>${note.title}</h6><p>${note.content}</p>` );
+															}
+															else notes_preview.innerText = "No notes found. Please try again using another file.";
+														}
+													}
+													catch (error_information) {
+														if (notes_preview) notes_preview.innerHTML = "Failure! Invalid data received, expecting collection of notes in a JSON File Format."
+													}
+												}
+												else if (event.type === "error" && notes_preview) {
+													notes_preview.classList.add("text-danger");
+													notes_preview.innerHTML = reader.error;
+												}
+											};
+											// Assigning the above EventHandler to below events
+											reader.onloadstart = handleFilReadEvent;
+											reader.onload = handleFilReadEvent;
+											reader.onloadend = handleFilReadEvent;
+											reader.onerror = handleFilReadEvent;
+										}
+									}}
+								/>
+								<p id="notes-preview" className="py-2"></p>
+							</div>
+							<div className="modal-footer justify-content-between">
+								<button type="button" className="btn btn-outline-secondary" id="bulk-import-dismiss" data-bs-dismiss="modal">Cancel</button>
+								<button type="button" id="bulk-import-trigger" className="btn btn-outline-primary invisible" disabled>Import</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</header>
 
 			<section className="contents">
@@ -175,7 +263,7 @@ function App() {
 					</form>
 
 					<button type="button" className="option w-100 btn btn-primary" id="addition" onClick={ () => { 
-						const newNoteModal = new Bootstrap.Modal(".modal");
+						const newNoteModal = new Bootstrap.Modal(document.forms.namedItem("New Note"));
 						newNoteModal.toggle();
 					} }>
 						Add Note
