@@ -217,7 +217,7 @@ function App() {
 			<section className="contents">
 				{notes.length ? notes.map( (note, index) => 
 					note && typeof(note) === typeof(Object()) && 
-					<NotesCard title={note.title} detail={decodeURIComponent(note["content"])} timestamp={note["creation_timestamp"]} className={note["custom_properties"] ? note["custom_properties"]:"default"} key={index} editor={()=>update_note(index)} deletion={()=>delete_note(index)} />
+					<NotesCard title={note.title} detail={decodeURIComponent(note["content"])} timestamp={note["timestamp"] ? note["timestamp"]:note["creation_timestamp"]} className={note["custom_properties"] ? note["custom_properties"]:"default"} key={index} editor={()=>update_note(index)} deletion={()=>{let decision = window.confirm("Are you sure to delete this note, permanently?"); if (decision) delete_note(index)}} />
 					) :
 					<p className="text-center fw-light py-5">No notes available. Get started by adding one.</p>
 				}
