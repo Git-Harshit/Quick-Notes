@@ -127,10 +127,11 @@ function App() {
 						</li>
 					</ul>
 				</nav>
-				<div className="modal fade" id="bulk-import-modal">
+				<div className="modal fade" id="bulk-import-modal" aria-labelledby="bulk-import-title" aria-hidden="true">
 					<div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 						<div className="modal-content">
 							<div className="modal-header">
+								<h3 className="modal-title" id="bulk-import-title">Bulk Import Notes</h3>
 								<button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
 							<div className="modal-body">
@@ -158,9 +159,8 @@ function App() {
 															if (new_notes.length > 0) {
 																setNotes( last_notes => last_notes.concat( new_notes ) );
 																// Clearing input and dismissing modal
-																let file_input = document.getElementById("bulk-import-notes"), dismiss_button = document.getElementById("bulk-import-dismiss");
-																if (file_input) file_input.value = "";
 																notes_preview && (notes_preview.innerText = "");
+																let dismiss_button = document.getElementById("bulk-import-dismiss");
 																if (dismiss_button) dismiss_button.click();
 															}
 															else {
@@ -206,7 +206,7 @@ function App() {
 								<p id="notes-preview" className="py-2"></p>
 							</div>
 							<div className="modal-footer justify-content-between">
-								<button type="button" className="btn btn-outline-secondary" id="bulk-import-dismiss" data-bs-dismiss="modal">Cancel</button>
+								<button type="button" className="btn btn-outline-secondary" id="bulk-import-dismiss" data-bs-dismiss="modal" onClick={()=>{ let file_input = document.getElementById("bulk-import-notes"); if (file_input) file_input.value = ""; }}>Cancel</button>
 								<button type="button" id="bulk-import-trigger" className="btn btn-outline-primary invisible" disabled>Import</button>
 							</div>
 						</div>
@@ -246,7 +246,7 @@ function App() {
 					}}>
 						<div className="modal-dialog modal-content">
 							<div className="modal-header">
-								<h4 className="modal-title">Add a new note</h4>
+								<h3 className="modal-title">Add a new note</h3>
 								<button type="button" className="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
 							<div className="modal-body">	
