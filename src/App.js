@@ -179,12 +179,12 @@ function App() {
 														new_notes = (new_notes === "") ? [] : JSON.parse(new_notes);
 														if (Array.isArray(new_notes) !== true) new_notes = [new_notes];		// Converting individual note into Array of that note to support importing individual note Object as well from reader.result
 
-														new_notes.map( note => (note.title || note.content) && { title:note.title, content:note.content, creation_timestamp: note["timestamp"] ? note.timestamp : note.creation_timestamp ? note.creation_timestamp : new Date().toLocaleString() } );	// Filtering data using the required fields of notes for importing, ensuring that a note is only imported if it holds a title or content data
+														new_notes = new_notes.map( note => (note.title || note.content) && { title:note.title, content:note.content, creation_timestamp: note["timestamp"] ? note.timestamp : ( note.creation_timestamp || Date().toLocaleString() ) } );	// Filtering data using the required fields of notes for importing, ensuring that a note is only imported if it holds a title or content data, with creation_timestamp field either re-used or set
 
 														if (notes_preview) {
 															if (new_notes.length > 0) {
-																notes_preview.innerHTML = "<br/><label>Preview:</label><br/><br/>";
-																new_notes.forEach( note => notes_preview.innerHTML += `<h6>${note.title}</h6><p>${note.content}</p>` );
+																notes_preview.innerHTML = "<label><em>Preview:</em></label><br/><br/>";
+																new_notes.forEach( note => notes_preview.innerHTML += `<h6>${note.title}</h6><p>${decodeURIComponent(note.content)}</p>` );
 															}
 															else notes_preview.innerText = "No notes found. Please try again using another file.";
 														}
