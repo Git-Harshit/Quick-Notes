@@ -29,7 +29,9 @@ Key highlights of this application are:
 - Delete all notes
 - Dark theme
 - Save notes locally on device with Browsers local storage
+- Sort all the existing Notes in ascending or descending order
 - Export Notes in JavaScript Object Notation (JSON) file format
+- Bulk Import Notes from Exported JavaScript Object Notation (JSON) file format
 
 ## Usage
 
