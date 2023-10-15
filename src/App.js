@@ -78,9 +78,12 @@ function App() {
 	return (
 		<div className="Application text-bg-light" data-bs-theme="light">
 			<header className="App-header">
-				<nav className="navbar navbar-expand px-1 justify-content-between" role="navigation">
+				<nav className="navbar navbar-expand-md px-1 justify-content-between" role="navigation">
 					<a href="/Quick-Notes" className="link navbar-brand"> Quick Notes </a>
-					<ul className="navbar-nav">
+					<button type="button" className="navbar-toggler border-0" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="#navigation" aria-expanded="false" aria-label="Toggle Navigation">
+						<span className="navbar-toggler-icon"></span>
+					</button>
+					<ul className="navbar-nav align-items-center navbar-collapse collapse flex-grow-0" id="navigation">
 						<li className="nav-item">
 							<button type="button" className="btn nav-link" onClick={()=>{
 								let application_body = document.querySelector(".Application");
