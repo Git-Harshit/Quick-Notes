@@ -41,7 +41,7 @@ Install above dependencies, if haven't already. Prefer using the exact same vers
     ``` bash
     npm install
     ```
-    or `npm i` to install node module dependencies locally. To ensure clean installation, use `npm clean install` or `npm ci` to discard any module that is already installed in the project directory and newly install all dependencies.
+    or `npm i` to install node module dependencies locally. To ensure clean installation with existing package-lock.json file present, use `npm clean-install` or `npm ci` to discard any module that is already installed in the project directory and newly install all dependencies.
 
 ### Source assessment
 
