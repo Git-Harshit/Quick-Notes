@@ -100,8 +100,25 @@ function App() {
 									}
 								}
 							}}>
-								<i className="bi bi-circle-half"></i>Toggle Dark Mode
+								<i className="bi bi-circle-half"></i> Toggle Dark Mode
 							</button>
+						</li>
+						<li className="nav-item dropdown">
+							<button type="button" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" disabled={notes && notes.length===0}>Sort Notes</button>
+							<ul className="dropdown-menu">
+								<li className="dropdown-item" onClick={ ()=>{ setNotes( current_notes => current_notes.sort((note1, note2) => note1.title ? note1.title.localeCompare(note2.title) : (note2.title ? -1 : 0)).concat() ) } }>
+									<i className="bi bi-sort-alpha-down"></i> By Title
+								</li>
+								<li className="dropdown-item" onClick={ ()=>{ setNotes( current_notes => current_notes.sort((note2, note1) =>  note1.title ? note1.title.localeCompare(note2.title) : (note2.title ? -1 : 0)).concat() ) } }>
+									<i className="bi bi-sort-alpha-up-alt"></i> By Title
+								</li>
+								<li className="dropdown-item" onClick={ ()=>{ setNotes( current_notes => current_notes.sort((note1, note2) => new Date(note1.timestamp ? note1.timestamp : note1.creation_timestamp) - new Date(note2.timestamp ? note2.timestamp : note2.creation_timestamp)).concat() ) } }>
+									<i className="bi bi-sort-down"></i> By Time
+								</li>
+								<li className="dropdown-item" onClick={ ()=>{ setNotes( current_notes => current_notes.sort((note1, note2) => new Date(note2.timestamp ? note2.timestamp : note2.creation_timestamp) - new Date(note1.timestamp ? note1.timestamp : note1.creation_timestamp)).concat() ) } }>
+									<i className="bi bi-sort-up-alt"></i> By Time
+								</li>
+							</ul>
 						</li>
 						<li className="nav-item">
 							<button type="button" className="btn nav-link" data-bs-toggle="modal" data-bs-target="#bulk-import-modal">Import Notes</button>
