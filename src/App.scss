@@ -53,6 +53,12 @@
 		margin: .5em;
 		background-color: unset;
 
+		.card-header.d-grid {
+			grid-auto-flow: column;
+			// justify-items: center;
+			grid-gap: 1em;
+		}
+
 		&:hover {
 			transition: all 0.5s;
 			box-shadow: 0 0 1px 2px burlywood;

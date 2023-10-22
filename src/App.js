@@ -313,8 +313,27 @@ class NotesCard extends React.Component {
 	render() {
 		return (
 			<article className={"card note-card text-reset " + this.props.className}>
-				<article className="card-header d-flex justify-content-between">
-					<i className="bi bi-pen-fill" onClick={this.props.editor} title="Edit this Note"></i> {/* <!-- For circular ones, try: <i className="bi bi-wrench-adjustable-circle"></i> --> */}
+				<article className="card-header d-grid justify-content-end">
+					<i className="bi bi-pen-fill" onClick={this.props.editor} title="Edit this Note"></i>
+					<i className="bi bi-clipboard-plus" title="Copy to Clipboard" onClick={ (event) => {
+						// Reading and then appending new Clipboard text on top of it, else just overwriting Clipboard
+						let originalData = "";
+						navigator.clipboard.readText()
+						.then((clipboardText) => { originalData = clipboardText; })
+						.catch( (reason) => {
+							console.error("Clipboard Reading Issue- %s", reason);
+						})
+						.finally(()=>{
+							navigator.clipboard.writeText(originalData + '\n' + this.props.title + '\n' + this.props.detail).then(() => {
+								if (event && event.target) {
+									event.target.classList.replace("bi-clipboard-plus", "bi-clipboard-check");
+									setTimeout( () => {event.target.classList.replace("bi-clipboard-check", "bi-clipboard-plus"); event.target.removeAttribute("disabled"); }, 1500 );
+								}
+							}).catch( (reason) => {
+								console.error("Clipboard Writing Issue- %s", reason);
+							})
+						});
+					}}></i>
 					<i className="bi bi-x-circle text-danger" onClick={this.props.deletion} title="Delete this Note"></i>
 				</article>
 				<article className="card-body">
