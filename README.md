@@ -82,6 +82,12 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.\
 This App is ready to be deployed!
 
+#### Built files deployment with a local static server
+
+As homepage property is set to /Quick-Notes under package.json (in order to match deployment path on this dedicated GitHub Pages URL address for its source repository), directly serving from within the build directory with a static server will fail due to mismatching relative paths of linked scripts and stylesheets tied with the source. For this, copy files within or rename build folder itself to folder named "Quick-Notes", and start the server from the parent directory of this folder. Then, open \<static-URL>/Quick-Notes to launch this web application. For example: if this static server has been started on [localhost](http://localhost), then [localhost/Quick-Notes](http://localhost/Quick-Notes) should be able to load the site with all the generated files.
+
+Servers such as npm serve and python3 -m http.server have been tried to load generated files for this project.
+
 ## Additional references by [React Documentation](https://react.dev)
 
 - [Code Splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
