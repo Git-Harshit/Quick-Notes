@@ -15,6 +15,10 @@
 			text-align: center;
 			text-decoration: underline wavy;
 		}
+
+		.dropdown > .dropdown-menu > .dropdown-item:active {
+			background-color: chocolate;
+		}
 	}
 
 	.contents {

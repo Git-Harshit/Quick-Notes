@@ -80,9 +80,7 @@ function App() {
 			<header className="App-header">
 				<nav className="navbar navbar-expand-md px-1 justify-content-between" role="navigation">
 					<a href="/Quick-Notes" className="link navbar-brand"> Quick Notes </a>
-					<button type="button" className="navbar-toggler border-0" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="#navigation" aria-expanded="false" aria-label="Toggle Navigation">
-						<span className="navbar-toggler-icon"></span>
-					</button>
+					<span className="navbar-toggler navbar-toggler-icon border-0 mr-1" tabIndex="0" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="#navigation" aria-expanded="false" aria-label="Toggle Navigation"></span>
 					<ul className="navbar-nav align-items-center navbar-collapse collapse flex-grow-0" id="navigation">
 						<li className="nav-item">
 							<button type="button" className="btn nav-link" onClick={()=>{
@@ -264,7 +262,7 @@ function App() {
 							contentbox.checkValidity();
 						}
 					}}>
-						<div className="modal-dialog modal-content">
+						<div className="modal-dialog modal-content w-auto">
 							<div className="modal-header">
 								<h3 className="modal-title">Add a new note</h3>
 								<button type="button" className="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
