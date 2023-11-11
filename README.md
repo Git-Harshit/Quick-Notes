@@ -26,6 +26,7 @@ Key highlights of this application are:
 
 - Add a new note
 - Edit, Delete a note
+- Copy a note to Clipboard
 - Delete all notes
 - Dark theme
 - Save notes locally on device with Browsers local storage
