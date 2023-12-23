@@ -85,9 +85,9 @@ This App is ready to be deployed!
 
 #### Built files deployment with a local static server
 
-As homepage property is set to /Quick-Notes under package.json (in order to match deployment path on this dedicated GitHub Pages URL address for its source repository), directly serving from within the build directory with a static server will fail due to mismatching relative paths of linked scripts and stylesheets tied with the source. For this, copy files within or rename build folder itself to folder named "Quick-Notes", and start the server from the parent directory of this folder. Then, open \<static-URL>/Quick-Notes to launch this web application. For example: if this static server has been started on [localhost](http://localhost), then [localhost/Quick-Notes](http://localhost/Quick-Notes) should be able to load the site with all the generated files.
+As homepage property is set to /Quick-Notes under package.json (in order to match deployment path on this dedicated GitHub Pages URL address for its source repository), directly serving from within the build directory with a static server will fail due to mismatching relative paths of linked scripts and stylesheets tied with the source. For this, copy files within or rename build folder itself to folder named "Quick-Notes", and start the server from the parent directory of this folder. Then, open \<static-URL>/Quick-Notes to launch this web application. For example: If this static server has been started on [localhost](http://localhost), then [localhost/Quick-Notes](http://localhost/Quick-Notes) should be able to load the site with all the generated files.
 
-Servers such as npm serve and python3 -m http.server have been tried to load generated files for this project.
+Servers such as `npm serve` and `python3 -m http.server` have been tried to load generated files for this project.
 
 ## Additional references by [React Documentation](https://react.dev)
 
@@ -99,4 +99,5 @@ Servers such as npm serve and python3 -m http.server have been tried to load gen
 
 ---
 
-This project is currently under development and is available in a ready state. Contributions of all kind are welcome to this project. Go ahead and start a discussion, raise an issue or create a Pull Request. :rocket:
+This project is available in a ready state and may get development improvements. Contributions of all kind are welcome to this project. 
+Go ahead and start a discussion, raise an [issue](../../issues) or create a [Pull Request](../../pulls). :rocket:
