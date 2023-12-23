@@ -280,13 +280,13 @@ function App() {
 						</div>
 					</form>
 
-					<button type="button" className="option w-100 btn btn-primary" id="addition" onClick={ () => { 
+					<button type="button" className="option w-100 btn btn-info text-light mx-2" id="addition" onClick={ () => { 
 						const newNoteModal = new Bootstrap.Modal(document.forms.namedItem("New Note"));
 						newNoteModal.toggle();
 					} }>
 						Add Note
 					</button>
-					{(notes.length>0) && <button type="reset" className="option btn btn-secondary" id="clearance" onClick={ () => {
+					{(notes.length>0) && <button type="reset" className="option btn btn-success me-2" id="clearance" onClick={ () => {
 						let decision = window.confirm("Are you sure?\nPlease note that this action is not reversible and will delete all your notes stored locally."); 
 						if (decision === true) { setNotes([]); } 
 					} }>
